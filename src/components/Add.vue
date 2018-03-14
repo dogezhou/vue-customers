@@ -52,6 +52,14 @@ export default {
           email: this.customer.email
         }
         var customers = JSON.parse(localStorage.getItem('customers'))
+        // generate id for new customer
+        let biggestId = 0
+        customers.forEach(element => {
+          if (element.id > biggestId) {
+            biggestId = element.id
+          }
+        })
+        newCustomer.id = biggestId + 1
         customers.push(newCustomer)
         localStorage.setItem('customers', JSON.stringify(customers))
         this.$router.push({

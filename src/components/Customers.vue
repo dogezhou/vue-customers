@@ -18,7 +18,7 @@
             <td>{{customer.name}}</td>
             <td>{{customer.phone}}</td>
             <td>{{customer.email}}</td>
-            <td><router-link class="btn btn-default" v-bind:to="'/customer/'+customer.id">View</router-link></td>
+            <td><router-link class="btn btn-default" v-bind:to="'/customer/'+customer.id">详情</router-link></td>
           </tr>
         </tbody>
     </table>
@@ -53,6 +53,9 @@ export default {
       console.log('this.$route.query.alert', this.$route.query.alert)
       this.alert = this.$route.query.alert
     }
+    this.fetchCustomers()
+  },
+  updated () {
     this.fetchCustomers()
   },
   components: {
