@@ -2,7 +2,7 @@
   <div class="customers container">
     <Alert v-if="alert" v-bind:message="alert" />
     <h1 class="page-header">客户管理</h1>
-    <input class="form-control" placeholder="姓名" v-model="filterInput">
+    <input class="form-control" placeholder="输入姓名搜索" v-model="searchQuery">
     <br />
     <table class="table table-striped">
         <thead>
@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="customer.id" v-for="customer in filterBy(customers, filterInput)">
+          <tr v-for="customer in filteredCustomers" :key="customer.id">
             <td>{{customer.name}}</td>
             <td>{{customer.phone}}</td>
             <td>{{customer.email}}</td>
@@ -33,29 +33,26 @@ export default {
   data () {
     return {
       customers: [],
-      filterInput: '',
+      searchQuery: '',
       alert: ''
     }
   },
   methods: {
     fetchCustomers () {
       this.customers = JSON.parse(localStorage.getItem('customers'))
-    },
-    filterBy (list, value) {
-      value = value.charAt(0).toUpperCase() + value.slice(1)
-      return list.filter(function (customer) {
-        return customer.name.indexOf(value) > -1
+    }
+  },
+  computed: {
+    filteredCustomers () {
+      return this.customers.filter((item) => {
+        return item.name.indexOf(this.searchQuery) !== -1
       })
     }
   },
   created () {
     if (this.$route.query.alert) {
-      console.log('this.$route.query.alert', this.$route.query.alert)
       this.alert = this.$route.query.alert
     }
-    this.fetchCustomers()
-  },
-  updated () {
     this.fetchCustomers()
   },
   components: {

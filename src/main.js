@@ -30,6 +30,12 @@ localStorage.setItem('customers', JSON.stringify([
     name: 'zhou',
     phone: 33333333333,
     email: 'ddd@dddd.com'
+  },
+  {
+    id: 3,
+    name: '哈丝',
+    phone: 66666666666,
+    email: 'wwww@ssddsdd.com'
   }
 ]))
 
