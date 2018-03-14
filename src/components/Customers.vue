@@ -1,14 +1,15 @@
 <template>
   <div class="customers container">
+    <Alert v-if="alert" v-bind:message="alert" />
     <h1 class="page-header">客户管理</h1>
     <input class="form-control" placeholder="姓名" v-model="filterInput">
     <br />
     <table class="table table-striped">
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>邮箱</th>
             <th></th>
           </tr>
         </thead>
@@ -25,24 +26,20 @@
 </template>
 
 <script>
+import Alert from './Alert'
+
 export default {
   name: 'customers',
   data () {
     return {
       customers: [],
-      filterInput: ''
+      filterInput: '',
+      alert: ''
     }
   },
   methods: {
     fetchCustomers () {
-      this.customers = [
-        {
-          id: 2,
-          name: 'zhou',
-          phone: 33333333333,
-          email: 'ddd@dddd.com'
-        }
-      ]
+      this.customers = JSON.parse(localStorage.getItem('customers'))
     },
     filterBy (list, value) {
       value = value.charAt(0).toUpperCase() + value.slice(1)
@@ -52,7 +49,14 @@ export default {
     }
   },
   created () {
+    if (this.$route.query.alert) {
+      console.log('this.$route.query.alert', this.$route.query.alert)
+      this.alert = this.$route.query.alert
+    }
     this.fetchCustomers()
+  },
+  components: {
+    Alert
   }
 }
 </script>

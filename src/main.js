@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Customers from './components/Customers'
 import About from './components/About'
+import Add from './components/Add'
 
 Vue.config.productionTip = false
 
@@ -14,9 +15,19 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {path: '/', component: Customers},
-    {path: '/about', component: About}
+    {path: '/about', component: About},
+    {path: '/add', component: Add}
   ]
 })
+
+localStorage.setItem('customers', JSON.stringify([
+  {
+    id: 2,
+    name: 'zhou',
+    phone: 33333333333,
+    email: 'ddd@dddd.com'
+  }
+]))
 
 /* eslint-disable no-new */
 new Vue({
